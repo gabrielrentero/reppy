@@ -103,7 +103,7 @@ def FetchMethod(cls, url, ttl_policy=None, max_size=1048576, *args, **kwargs):
             # Get the TTL policy's ruling on the ttl
             expires = (ttl_policy or cls.DEFAULT_TTL_POLICY).expires(res)
 
-            if res.status_code == 200:
+            if (res.status_code == 200 or res.status_code == 301):
                 robots = cls.parse(url, content, expires)
                 if after_parse_hook is not None:
                     after_parse_hook(robots)
